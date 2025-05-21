@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Include="bin\Debug\net7.0\Sakura.csv" />
+      <None Include="bin\Debug\net7.0\users.csv" />
+    </ItemGroup>
+
 </Project>

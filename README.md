@@ -11,7 +11,7 @@
   - - [x] When the application is started for the first time, it must create a new .csv or .txt file to store password data.
   - - [x] When the application is closed, this file must be encrypted using the AES algorithm.
   - - [x] When the application is launched, it must decrypt the file to allow access to the stored data.
-- - Add a New Password Entry:
+- Add a New Password Entry:
   - - [x] Provide a form to input the following fields:
     - Title (e.g., "Facebook")
     - Password

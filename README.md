@@ -37,10 +37,10 @@
   - - [x] After login, the user's file should be decrypted automatically.
   - - [x] When the user logs out or the application closes unexpectedly, the file should be encrypted.
 - Random Password Generator:
-  - - [ ] Implement a feature to generate strong, random passwords.
+  - - [x] Implement a feature to generate strong, random passwords.
   - - [ ] Allow the user to select password length and character types (e.g., symbols, numbers, uppercase, lowercase).
 - Secure Reveal:
   - - [x] After searching for a password, do not show it immediately.
   - - [x] Instead, provide a "Show" button that decrypts and displays the password when clicked.
 - Copy to Clipboard:
-  - - [ ] Add a button that copies the decrypted password directly to the clipboard for easy use.
+  - - [x] Add a button that copies the decrypted password directly to the clipboard for easy use.

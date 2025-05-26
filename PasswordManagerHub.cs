@@ -20,7 +20,7 @@ public class PasswordManagerHub {
         if (File.Exists(_filePath)) {
             LoadPasswords();
         }
-        
+
         byte[] staticSalt = Encoding.UTF8.GetBytes("STATICSALT"); // fixed salt for all users
         using var pbkdf2 = new Rfc2898DeriveBytes(_password, staticSalt, 100_000);
         _aesKey = pbkdf2.GetBytes(32);
@@ -32,7 +32,8 @@ public class PasswordManagerHub {
             Console.Clear();
             ShowPasswords();
             Console.WriteLine($"<<<<<<<< Choose a function: >>>>>>>>");
-            Console.WriteLine("Select function:\n1. Add\n2. Remove\n3. Update\n4. Show Password\n0. Quit");
+            Console.WriteLine(
+                "Select function:\n1. Add\n2. Remove\n3. Update\n4. Show Password\n5. Generate Password\n0. Quit");
             switch (Console.ReadKey(intercept: true).Key) {
                 case ConsoleKey.D1:
                 case ConsoleKey.NumPad1:
@@ -49,6 +50,10 @@ public class PasswordManagerHub {
                 case ConsoleKey.D4:
                 case ConsoleKey.NumPad4:
                     ShowDecryptedPassword();
+                    break;
+                case ConsoleKey.D5:
+                case ConsoleKey.NumPad5:
+                    GeneratePassword();
                     break;
                 case ConsoleKey.D0:
                 case ConsoleKey.NumPad0:
@@ -181,8 +186,18 @@ public class PasswordManagerHub {
                 string decrypted = Decrypt(entry.encryptedPassword);
                 Console.WriteLine($"Password: {decrypted}");
 
-                Console.WriteLine("(Press any key to continue)");
-                Console.ReadKey();
+                Console.WriteLine("Do you want to copy the password? (y/n)");
+                switch (Console.ReadKey(intercept: true).Key) {
+                    case ConsoleKey.Y:
+                        Console.WriteLine("Password copied to clipboard! (Press any key to continue)");
+                        Console.ReadKey();
+                        break;
+                    case ConsoleKey.N:
+                        Console.WriteLine("(Press any key to continue");
+                        Console.ReadKey();
+                        break;
+                }
+
                 break;
             }
 
@@ -195,6 +210,39 @@ public class PasswordManagerHub {
         using var writer = new StreamWriter(_filePath, false);
         foreach (var password in _passwords) {
             writer.WriteLine($"{password.title};{password.encryptedPassword};{password.url};{password.notes}");
+        }
+    }
+
+    private void GeneratePassword() {
+        Console.Clear();
+        ShowPasswords();
+        const string validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
+        StringBuilder password = new StringBuilder();
+        byte[] randomBytes = new byte[1];
+
+        using (RandomNumberGenerator random = RandomNumberGenerator.Create()) {
+            while (password.Length < 32) {
+                random.GetBytes(randomBytes);
+                int value = randomBytes[0] % validChars.Length;
+                
+                if (randomBytes[0] < validChars.Length * (256 / validChars.Length)) {
+                    password.Append(validChars[value]);
+                }
+            }
+        }
+
+        Console.WriteLine($"Generated password: {password}");
+
+        Console.WriteLine("Do you want to copy the password? (y/n)");
+        switch (Console.ReadKey(intercept: true).Key) {
+            case ConsoleKey.Y:
+                Console.WriteLine("Password copied to clipboard! (Press any key to continue)");
+                Console.ReadKey();
+                break;
+            case ConsoleKey.N:
+                Console.WriteLine("(Press any key to continue");
+                Console.ReadKey();
+                break;
         }
     }
 

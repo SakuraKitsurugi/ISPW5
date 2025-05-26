@@ -19,7 +19,7 @@
     - Additional notes
   - - [x] The password itself must be encrypted before saving using AES, DES, or RSA.
 - Search for a Password:
-  - - [ ] Allow searching for a password entry using its title.
+  - - [x] Allow searching for a password entry using its title.
   - - [x] Display the associated data (e.g., URL, notes), but do not display the password immediately.
 - Update a Password:
   - - [x] Allow updating an existing password entry by its title.

@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> Grade: ?/10
+> Grade: 10/10
 ## Description:
 **Your goal is to create a Password Manager application that allows users to securely store, update, and retrieve their passwords. You will implement encryption and basic password management functions. You may use a GUI (e.g., WinForms, WPF, JavaFX) or a console-based interface.**
 > [!NOTE]
